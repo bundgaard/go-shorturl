@@ -9,4 +9,6 @@ Start it by building `go build ./cmd/shorturl`
 
 ## Flags
 
-./shorturl -port 8081
+```bash 
+$ ./shorturl -port 8081
+```
