@@ -1,5 +1,7 @@
 package shorten
 
+import "time"
+
 // Repository ...
 type Repository interface {
 	Close()
@@ -12,6 +14,7 @@ type Repository interface {
 
 // ShortURLModel ...
 type ShortURLModel struct {
-	ID       string `json:"id"`
-	Location string `json:"location"`
+	ID       string    `json:"id,omitempty"`
+	Location string    `json:"location"`
+	ExpireAt time.Time `json:"expire_at"`
 }

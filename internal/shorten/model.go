@@ -41,6 +41,7 @@ func (sapi API) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusBadRequest)
 			return
 		}
+		log.Println(clientRequest)
 		shortenID := uuid.New()
 		clientRequest.ID = shortenID.String()
 		err = sapi.r.Create(&clientRequest)

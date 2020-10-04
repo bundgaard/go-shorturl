@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"testing"
+	"time"
 )
 
 func TestServeHTTP(t *testing.T) {
@@ -21,6 +22,26 @@ func TestServeHTTP(t *testing.T) {
 	var (
 		location string
 	)
+	t.Run("POST with expiration", func(t *testing.T) {
+		var buf bytes.Buffer
+		req1 := ShortURLModel{Location: "https://www.google.com", ExpireAt: time.Date(2021, 1, 1, 0, 0, 0, 0, time.Local)}
+		if err := json.NewEncoder(&buf).Encode(req1); err != nil {
+			t.Error("failed to encode JSON")
+		}
+
+		log.Println(buf.String())
+
+		resp, err := http.Post(server.URL, "application/json", &buf)
+		if err != nil {
+			t.Error(err)
+		}
+		locationURL, err := resp.Location()
+		if err != nil {
+			t.Error(err)
+		}
+
+		log.Println(locationURL)
+	})
 	t.Run("POST request", func(t *testing.T) {
 		var buf bytes.Buffer
 		req1 := ShortURLModel{Location: "https://www.google.com"}
