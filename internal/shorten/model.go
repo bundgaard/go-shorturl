@@ -6,6 +6,7 @@ import (
 	"net/http"
 
 	"github.com/google/uuid"
+	// go-sqlite3 loading ...
 	_ "github.com/mattn/go-sqlite3"
 )
 
